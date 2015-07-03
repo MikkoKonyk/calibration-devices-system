@@ -76,9 +76,7 @@ public class StateVerificatorController {
         );
     }
     
-    /**
-     * Update verifications
-     */
+    
     @RequestMapping(value = "new/update", method = RequestMethod.PUT)
     public void updateVerification(
             @RequestBody VerificationUpdatingDTO verificationUpdatingDTO) {
