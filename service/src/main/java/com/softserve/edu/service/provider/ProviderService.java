@@ -15,7 +15,7 @@ public class ProviderService {
     private ProviderRepository providerRepository;
 
     @Transactional(readOnly = true)
-    public List<Provider> findByDistrictDesignation(String designation) {
+    public List<Provider> findByDistrict(String designation) {
         return providerRepository.findByAddressDistrict(designation);
     }
 

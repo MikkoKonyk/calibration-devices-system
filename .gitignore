@@ -5,5 +5,5 @@
 .settings/
 target/
 
-
+web/src/main/webapp/resources/assets/bower_components
 service/documents

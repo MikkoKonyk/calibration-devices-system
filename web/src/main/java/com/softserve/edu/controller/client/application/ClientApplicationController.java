@@ -81,7 +81,7 @@ public class ClientApplicationController {
     public List<ApplicationFieldDTO> getProvidersCorrespondingDistrict(
             @PathVariable String district) {
 
-        return providerService.findByDistrictDesignation(district)
+        return providerService.findByDistrict(district)
                 .stream()
                 .map(provider -> new ApplicationFieldDTO(
                                 provider.getId(),

@@ -94,14 +94,21 @@ public class CalibratorController {
        
     }
 
+
     @RequestMapping(value = "new/count/calibrator", method = RequestMethod.GET)
     public Long getCountOfNewVerificationsByCalibratorId( @AuthenticationPrincipal SecurityUserDetailsService.CustomUserDetails user) {
     	//System.out.println("Inside calibrator controller count ...");
     	return verificationService.findCountOfNewVerificationsByCalibratorId(user.getOrganizationId());
     }
     
+
+    /**
+     * Find verificators by district which correspond calibrator district
+     *
+     * @return verificator
+     */
     @RequestMapping(value = "new/verificators", method = RequestMethod.GET)
-    public List<StateVerificator> getMatchingVerificators(
+    public List<StateVerificator> updateVerification(
             @AuthenticationPrincipal SecurityUserDetailsService.CustomUserDetails user) {
 
         return verificatorService.findByDistrict(
@@ -115,6 +122,7 @@ public class CalibratorController {
     @RequestMapping(value = "new/update", method = RequestMethod.PUT)
     public void updateVerification(
             @RequestBody VerificationUpdatingDTO verificationUpdatingDTO) {
+    	System.err.println("INSIDE CALIBRATOR new/update");
         for (String verificationId : verificationUpdatingDTO.getIdsOfVerifications()) {
             verificationService
                     .updateVerificationByCalibrator(
@@ -124,6 +132,7 @@ public class CalibratorController {
         }
     }
     
+
     @RequestMapping(value = "new/read", method = RequestMethod.PUT)
     public void markVerificationAsRead(@RequestBody VerificationReadStatusUpdateDTO verificationDto) {
      System.out.println("inside controller to update");

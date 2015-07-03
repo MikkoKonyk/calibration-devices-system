@@ -15,19 +15,19 @@ angular
             getNewVerificationDetails: function (verificationId) {
                 return getData('verifications/new/' + verificationId);
             },
-            getVerificators: function (url) {
+            getProviders: function (url) {
                 return getData('verifications/new/providers');
             },
-            sendVerificationsToCalibrator: function (data) {
+            sendVerificationsToStateVerificator: function (data) {
                 return updateData('new/update', data);
             },
             sendInitiatedVerification:function(form){
                 return sendData("send",form);
             },
-            getVerificatorsCorrespondingProvider:function(url){ // ??
+            getVerificatorsCorrespondingCalibrator:function(url){ // ??
                 return getData("applications/verificators");
             },
-            getLocalitiesCorrespondingProvider:function(url){
+            getLocalitiesCorrespondingCalibrator:function(url){
                 return getData("applications/localities");
             },
             getStreetsCorrespondingLocality:function(selectedLocality){

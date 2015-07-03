@@ -8,5 +8,5 @@ import java.util.List;
 
 @Repository
 public interface ProviderRepository extends CrudRepository<Provider, Long> {
-    public List<Provider> findByAddressDistrict(String designation);
+    public List<Provider> findByAddressDistrict(String designation); //if not working, try district Designation
 }

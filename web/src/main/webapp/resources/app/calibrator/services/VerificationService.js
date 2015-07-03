@@ -18,7 +18,7 @@ angular
             getVerificators: function (url) {
                 return getData('verifications/new/verificators');
             },
-            sendVerificationsToCalibrator: function (data) {
+            sendVerificationsToVerificator: function (data) {
                 return updateData('new/update', data);
             },
             sendInitiatedVerification:function(form){

@@ -21,10 +21,10 @@ public class CalibratorEmployeeService {
     private CalibratorEmployeeRepository calibratorEmployeeRepository;
 
     /**
-     * Adds Employee for calibrator. Saves encoded password and
-     * gives role CALIBRATOR_EMPLOYEE for user
+     * Adds Employee for StateVerificator. Saves encoded password and
+     * gives role STATE_VERIFICATOR_EMPLOYEE for user
      *
-     * @param calibratorEmployee data for creation employee
+     * @param verificatorEmployee data for creation employee
      *      */
     @Transactional
     public void addEmployee(CalibratorEmployee calibratorEmployee) {

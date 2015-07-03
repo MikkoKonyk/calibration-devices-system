@@ -162,7 +162,7 @@ public class ProviderVerificationController {
     }
 
     /**
-     * Update verificationsproviderListEmployee
+     * Update verificationsProviderListEmployee
      */
     @RequestMapping(value = "new/update", method = RequestMethod.PUT)
     public void updateVerification(

@@ -8,6 +8,9 @@ angular
             $scope.itemsPerPage = 10;
             $scope.pageData = [];
 
+            /**
+             * get page
+             */
             $scope.onTableHandling = function () {
                 verificationService
                     .getNewVerifications($scope.currentPage, $scope.itemsPerPage)
@@ -18,7 +21,9 @@ angular
             };
 
             $scope.onTableHandling();
-
+            /**
+             * open modal
+             */
             $scope.openDetails = function ($index) {
                 $modal.open({
                     animation: true,
@@ -42,7 +47,10 @@ angular
             $scope.idsOfVerifications = [];
             $scope.checkedItems = [];
             $scope.allIsEmpty = true;
-
+            
+            /**
+             * push verification id to array
+             */
             $scope.resolveVerificationId = function (id) {
 
                 var index = $scope.idsOfVerifications.indexOf(id);

@@ -14,6 +14,7 @@ import javax.persistence.criteria.Path;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 import com.softserve.edu.entity.*;
+import com.softserve.edu.entity.user.CalibratorEmployee;
 
 import com.softserve.edu.entity.user.ProviderEmployee;
 import com.softserve.edu.entity.util.ReadStatus;
@@ -25,7 +26,6 @@ import com.softserve.edu.service.exceptions.NotAvailableException;
 
 
 import com.softserve.edu.service.utils.ListToPageTransformer;
-
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -159,7 +159,19 @@ public class VerificationService {
 			}
 
     }
-
+    /**
+     * Returns requested number(page) of Verification entities(itemsPerPage
+     * parameter) that belongs to specific stateVerificator and have status in_progress.
+     * Note: pagination starts from 1 at client side, but Spring Data JPA from
+     * 0.
+     *
+     * @param stateVerificatorId id of stateVerificator.
+     * @param pageNumber   Number of partial data that will be returned.
+     * @param itemsPerPage Number of Verification-s that will be present in one page(unit
+     *                     of partial data).
+     * @return Requested page of Verification-s that belong to specific
+     * organization.
+     */
     
     @Transactional(readOnly = true)
     public Page<Verification> findPageOfSentVerificationsByStateVerificatorId(Long stateVerificatorId,
@@ -294,6 +306,7 @@ public class VerificationService {
             logger.error("verification haven't found");
             return;
         }
+        System.err.println("INSIDE PROV SERVICE:SENDING");
         verification.setStatus(Status.RECEIVED);
         verification.setCalibrator(calibrator);
         verification.setProviderEmployee(providerEmployee);
@@ -315,17 +328,19 @@ public class VerificationService {
     }
     
 
-    /**
-     * Find verification, add IN_PROGRESS status to state verificator, add state verificator to verification.
-    /**
-     * Find verification, add IN_PROGRESS status to state verificator, add stat
-     * verificator to verification. save verification
+   /**
+     * Find verification, add IN_PROGRESS status to stateVerificator, add stateVerificator
+     * to verification, save verification
      */
     @Transactional
-    public void updateVerificationByCalibrator(String verificationId,
-                                               StateVerificator stateVerificator) {
+    public void updateVerificationByCalibrator(String verificationId, StateVerificator stateVerificator) {
         Verification verification = verificationRepository
                 .findOne(verificationId);
+        if(verification == null){
+        	logger.error("verification haven't found");
+        	return;
+        }
+        System.err.println("INSIDE CALIBRATOR SERVICE:SEND");
         verification.setStatus(Status.IN_PROGRESS);
         verification.setStateVerificator(stateVerificator);
         verification.setReadStatus(ReadStatus.UNREAD);
@@ -336,33 +351,33 @@ public class VerificationService {
      * Find verification, add complete status to stateVerificator, add stateVerificator to verification
      * save verification
      */
-    @Transactional
-    public void updateVerification(String verificationId, StateVerificator stateVerificator){
-    	Verification verification = verificationRepository.findOne(verificationId);
-    	 if (verification == null) {
-             logger.error("verification haven't found");
-             return;
-         }
-    	 verification.setStatus(Status.COMPLETED);
-    	 verification.setStateVerificator(stateVerificator);
-    	 verificationRepository.save(verification);
-    }
-    
-    /**
-     * Find verification, add receive status to Provider, add Provider to verification
-     * save verification
-     */
 //    @Transactional
-//    public void updateVerification(String verificationId, Provider provider){
+//    public void updateVerification(String verificationId, StateVerificator stateVerificator){
 //    	Verification verification = verificationRepository.findOne(verificationId);
 //    	 if (verification == null) {
 //             logger.error("verification haven't found");
 //             return;
 //         }
 //    	 verification.setStatus(Status.COMPLETED);
-//    	 verification.setProvider(provider);
+//    	 verification.setStateVerificator(stateVerificator);
 //    	 verificationRepository.save(verification);
 //    }
+//    
+//    /**
+//     * Find verification, add receive status to Provider, add Provider to verification
+//     * save verification
+//     */
+    @Transactional
+    public void updateVerificationByStateVerificator(String verificationId, Provider provider){
+    	Verification verification = verificationRepository.findOne(verificationId);
+    	 if (verification == null) {
+             logger.error("verification haven't found");
+             return;
+         }
+    	 verification.setStatus(Status.COMPLETED);
+    	 verification.setProvider(provider);
+    	 verificationRepository.save(verification);
+    }
 //    
 //    /**
 //     * Find verification, add RECEIVED status to provider, add provider to verification.
