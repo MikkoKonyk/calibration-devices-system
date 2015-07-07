@@ -202,7 +202,6 @@ $scope.openSendingModal = function () {
             var dataToSend = {
                 idsOfVerifications: $scope.idsOfVerifications,
                 calibrator: formData.calibrator,
-                //    employeeProvider: formData.provider
             };
 
             $log.info(dataToSend);

@@ -2,7 +2,6 @@ package com.softserve.edu.service.verification;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -12,7 +11,6 @@ import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Join;
-import javax.persistence.criteria.Path;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
@@ -197,7 +195,6 @@ public class VerificationService {
 		CriteriaQuery<Long> countQuery = cb.createQuery(Long.class);
 		Root<Verification> root = criteriaQuery.from(Verification.class);
 		Root<Verification> rootCount = countQuery.from(Verification.class);
-	//	Join<Verification, ProviderEmployee> joinSearche = root.join("providerEmployee");  //my code
 		Join<Verification, Provider> joinSearch = root.join("provider");
 		Join<Verification, Provider> joinCount = rootCount.join("provider");
 		criteriaQuery.select(root);
@@ -210,7 +207,7 @@ public class VerificationService {
 		searchPredicate = cb.and(cb.equal(joinSearch.get("id"), providerId), searchPredicate);
 		countPredicate = cb.and(cb.equal(joinCount.get("id"), providerId), countPredicate);
 
-		//searchPredicate = cb.and(cb.equal(joinSearch.get("providerEmployee"), userName), searchPredicate);  //my code
+		
 
 
 		criteriaQuery.orderBy(cb.desc(root.get("initialDate")));
@@ -330,11 +327,12 @@ public class VerificationService {
 	@Transactional
 	public void updateVerificationReadStatus(String verificationId, String readStatus) {
 		Verification verification = verificationRepository.findOne(verificationId);
+		System.err.println("INSIDEservice!!!");
 		if (verification == null) {
 			logger.error("verification haven't found");
 			return;
 		}
-		System.out.println("inside service updating verif addressed from calibrator...");
+		
 		verification.setReadStatus(ReadStatus.READ);
 		verificationRepository.save(verification);
 	}
